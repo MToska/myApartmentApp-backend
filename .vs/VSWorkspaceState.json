@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\client",
+    "\\client\\public",
+    "\\client\\src",
+    "\\client\\src\\components",
+    "\\client\\src\\components\\Auth",
+    "\\client\\src\\components\\Auth\\Register.js",
+    "\\client\\src\\components\\layouts",
+    "\\config",
+    "\\models"
+  ],
+  "SelectedNode": "\\client\\src\\components\\Auth\\Register.js",
+  "PreviewInSolutionExplorer": false
+}
