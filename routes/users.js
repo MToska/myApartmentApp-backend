@@ -2,14 +2,20 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const router = express.Router();
-const { Users, regValidate } = require('../models/Users');
+const jwt = require("jsonwebtoken");
+const keys = require("../config/keys");
+const jwt_decode = require("jwt-decode");
+const { Users, regValidate, logValidate } = require('../models/Users');
 
 //Get 
 router.get("/", (req, res) => {
     res.send("Hello users api");
 });
 
-// POST register users
+/* 
+ * POST 
+ * register users
+ */
 router.post('/register', (req, res) => {
     //Validation
     const { error } = regValidate(req.body);
@@ -58,6 +64,59 @@ router.post('/register', (req, res) => {
             });
         });
     });
+});
+/* 
+ * POST 
+ * Login users
+ */
+router.post('/login', (req, res) => {
+    //Validation
+    const { error } = logValidate(req.body);
+    if (error) {
+        return res.status(400).json({
+            status: 'error',
+            type: error.details[0].path[0],
+            msg: error.details[0].message
+        });
+    }
+    //Check email exist or not
+    Users.findOne({ email: req.body.email })
+        .then(user => {
+            if (!user) {
+                return res.status(400).json({
+                        status: 'error',
+                        type: "email",
+                        msg: "Email is not registered"
+                })
+            }
+            //Check password using brypt
+            bcrypt.compare(req.body.password, user.password)
+                .then(isMatch => {
+                    if (isMatch) {
+                        //Generate token using jsonwebtoken
+                        const payload = {
+                            id: user.id,
+                            username: user.username,
+                            email: user.email
+                        };
+
+                        jwt.sign(payload, keys.secretKey, { expiresIn: 3600 }, (err, token) => {
+                            //How to get user from token
+                            const decode = jwt_decode(token);
+                            res.json({
+                                success: true,
+                                token: 'Bearer ' + token
+                            });
+                        });
+                    } else {
+                        return res.status(400).json({
+                            status: 'password',
+                            type: "password",
+                            msg: "Password is incorrect."
+                        })
+                    }
+                })
+        });
 });
 
 //Export
