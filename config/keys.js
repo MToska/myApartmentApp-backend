@@ -1,4 +1,4 @@
 module.exports = {
-    dbURI: 'mongodb://localhost/testdb',
+    dbURI: 'mongodb://localhost/myApartmentApp',
     secretKey: "secretkeywhatever"
 }

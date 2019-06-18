@@ -5,12 +5,12 @@
     "\\client\\public",
     "\\client\\src",
     "\\client\\src\\components",
-    "\\client\\src\\components\\Auth",
-    "\\client\\src\\components\\Auth\\Register.js",
+    "\\client\\src\\components\\auth",
     "\\client\\src\\components\\layouts",
+    "\\client\\src\\photos",
     "\\config",
-    "\\models"
+    "\\routes"
   ],
-  "SelectedNode": "\\client\\src\\components\\Auth\\Register.js",
+  "SelectedNode": "\\client\\src\\components\\layouts\\ApartmentCard.js",
   "PreviewInSolutionExplorer": false
 }
