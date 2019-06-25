@@ -7,10 +7,10 @@
     "\\client\\src\\components",
     "\\client\\src\\components\\auth",
     "\\client\\src\\components\\layouts",
+    "\\client\\src\\components\\Menu",
     "\\client\\src\\photos",
-    "\\config",
-    "\\routes"
+    "\\config"
   ],
-  "SelectedNode": "\\client\\src\\components\\layouts\\ApartmentCard.js",
+  "SelectedNode": "\\client\\src\\components\\layouts\\InvestmentCard.js",
   "PreviewInSolutionExplorer": false
 }

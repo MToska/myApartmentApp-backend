@@ -6,6 +6,15 @@ const { dbURI } = require("./config/keys");
 const users = require('./routes/users');
 const calculator = require('./routes/calculator');
 const apartmentsList = require('./routes/apartmentsList');
+const ranking = require('./routes/ranking');
+const withAuth = require('./config/middleware');
+const cookieParser = require('cookie-parser');
+
+//Authentication by passport
+const passport = require('passport');
+app.use(passport.initialize());
+require('./config/passport')(passport);
+
 //Connect
 mongoose
     .connect(dbURI, { useNewUrlParser: true })
@@ -15,12 +24,13 @@ mongoose
 //Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 //Routes
 app.use("/api/users", users);
 app.use("/api/calculator", calculator);
 app.use("/api/apartments", apartmentsList);
-
+app.use("/api/ranking", ranking);
 
 //Listen
 const port = process.env.PORT || 5000;

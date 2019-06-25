@@ -6,12 +6,24 @@ const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
 const jwt_decode = require("jwt-decode");
 const { Users, regValidate, logValidate } = require('../models/Users');
+const passport = require('passport');
+const withAuth = require('../config/middleware');
+const cookieParser = require('cookie-parser');
+
+const auth = require('../config/auth');
 
 //Get 
 router.get("/", (req, res) => {
     res.send("Hello users api");
 });
 
+router.get('/secret', withAuth, function (req, res) {
+    res.send('The password is potato');
+});
+
+router.get('/checkToken', withAuth, function (req, res) {
+    res.sendStatus(200);
+});
 /* 
  * POST 
  * register users
@@ -95,19 +107,10 @@ router.post('/login', (req, res) => {
                     if (isMatch) {
                         //Generate token using jsonwebtoken
                         const payload = {
-                            id: user.id,
-                            username: user.username,
                             email: user.email
                         };
-
-                        jwt.sign(payload, keys.secretKey, { expiresIn: 3600 }, (err, token) => {
-                            //How to get user from token
-                            const decode = jwt_decode(token);
-                            res.json({
-                                success: true,
-                                token: 'Bearer ' + token
-                            });
-                        });
+                        const token = jwt.sign(payload, keys.secretKey, { expiresIn: 36 }); 
+                        res.cookie('token', token, { httpOnly: true }).sendStatus(200);
                     } else {
                         return res.status(400).json({
                             status: 'password',
@@ -117,6 +120,12 @@ router.post('/login', (req, res) => {
                     }
                 })
         });
+});
+
+
+
+router.get("/current", passport.authenticate('jwt', { session: false }), (req, res) => {
+    res.send("Success you can visit this site")
 });
 
 //Export
