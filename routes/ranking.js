@@ -21,8 +21,14 @@ router.get("/", (req, res) => {
 
 // POST 
 router.post('/', (req, res) => {
-    const permissionReq = req.body.permission;
-    console.log(permissionReq);
+    let investmentName = req.body.investmentName;
+    investmentsList.find({ 'investment_name': investmentName }).exec(function (err, docs) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(docs);
+        }
+    })
 });
 
 

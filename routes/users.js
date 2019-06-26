@@ -6,7 +6,6 @@ const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
 const jwt_decode = require("jwt-decode");
 const { Users, regValidate, logValidate } = require('../models/Users');
-const passport = require('passport');
 const withAuth = require('../config/middleware');
 const cookieParser = require('cookie-parser');
 
@@ -109,7 +108,7 @@ router.post('/login', (req, res) => {
                         const payload = {
                             email: user.email
                         };
-                        const token = jwt.sign(payload, keys.secretKey, { expiresIn: 36 }); 
+                        const token = jwt.sign(payload, keys.secretKey, { expiresIn: 360 }); 
                         res.cookie('token', token, { httpOnly: true }).sendStatus(200);
                     } else {
                         return res.status(400).json({
@@ -123,10 +122,6 @@ router.post('/login', (req, res) => {
 });
 
 
-
-router.get("/current", passport.authenticate('jwt', { session: false }), (req, res) => {
-    res.send("Success you can visit this site")
-});
 
 //Export
 module.exports = router;

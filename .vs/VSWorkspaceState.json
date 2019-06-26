@@ -8,9 +8,9 @@
     "\\client\\src\\components\\auth",
     "\\client\\src\\components\\layouts",
     "\\client\\src\\components\\Menu",
-    "\\client\\src\\photos",
-    "\\config"
+    "\\models",
+    "\\routes"
   ],
-  "SelectedNode": "\\client\\src\\components\\layouts\\InvestmentCard.js",
+  "SelectedNode": "\\client\\src\\components\\layouts\\Ratings.js",
   "PreviewInSolutionExplorer": false
 }
