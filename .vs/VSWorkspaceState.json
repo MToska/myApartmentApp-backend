@@ -7,10 +7,10 @@
     "\\client\\src\\components",
     "\\client\\src\\components\\auth",
     "\\client\\src\\components\\layouts",
-    "\\client\\src\\components\\Menu",
+    "\\config",
     "\\models",
     "\\routes"
   ],
-  "SelectedNode": "\\client\\src\\components\\layouts\\Ratings.js",
+  "SelectedNode": "\\routes\\comments.js",
   "PreviewInSolutionExplorer": false
 }

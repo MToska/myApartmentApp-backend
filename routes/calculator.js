@@ -2,10 +2,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
 
-//Get 
-router.get("/", (req, res) => {
-    res.send("Hello users api");
-});
+
 
 /* 
  * POST 
@@ -28,7 +25,6 @@ router.post('/', (req, res) => {
         mortgageRegisterFeeMortgage: mortgageRegisterFeeMortgage,
         finalPrice: finalPrice
     }
-    console.log(prices);
     res.send(prices);
 });
 

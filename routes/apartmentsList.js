@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
+const Schema = mongoose.Schema;
 mongoose.connect('mongodb://localhost/myApartmentApp');
 mongoose.model('ApartmentsList', new Schema({}), 'apartmentsList');
+
 var apartmentsList = mongoose.model('ApartmentsList');
 
 //Get
@@ -17,7 +18,6 @@ router.get("/", (req, res) => {
             console.log(docs);
         }
     })
-
 });
 
 //Post
@@ -50,7 +50,6 @@ router.post("/", (req, res) => {
             res.send(docs);
         }
     })
-
 
 });
 
