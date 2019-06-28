@@ -7,6 +7,26 @@ mongoose.connect('mongodb://localhost/myApartmentApp');
 mongoose.model('InvestmentsComments', new Schema({ investment_name: String, author: String, comment: String, grading: Number }), 'investmentsComments');
 var investmentsComments = mongoose.model('InvestmentsComments');
 
+//GET
+router.get('/', (req, res) => {
+    investmentsComments.aggregate([
+        {
+            $group: {
+                _id: "$investment_name",
+                average_grade: {
+                    $avg: "$grading"
+                },
+            }
+        }
+    ]).exec(function (err, docs) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(docs);
+        }
+    })
+});
+
 // POST 
 router.post('/', (req, res) => {
     let investmentName = req.body.investmentName;
@@ -26,7 +46,7 @@ router.post('/rating', (req, res) => {
         { $match: { 'investment_name': investmentName } },
         {
             $group: {
-                _id: null,
+                _id: "$investment_name",
                 average_grade: {
                     $avg: "$grading"
                 },
